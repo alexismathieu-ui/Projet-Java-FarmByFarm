@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="FarmController.InventoryController" prefWidth="250" prefHeight="350" style="-fx-padding: 20;">
+    <Label text="MON INVENTAIRE" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+    <Separator/>
+
+    <VBox spacing="5" VBox.vgrow="ALWAYS">
+        <ListView fx:id="inventoryList" prefHeight="200" />
+    </VBox>
+
+    <Label fx:id="wheatSeedLabel" visible="false" managed="false" />
+    <Label fx:id="wheatCropLabel" visible="false" managed="false" />
+
+    <Button text="Fermer" onAction="#closeInventory" style="-fx-background-color: #d32f2f; -fx-text-fill: white;"/>
+</VBox>

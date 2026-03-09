@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" spacing="20" prefHeight="400.0" prefWidth="600.0"
+      style="-fx-background-color: #78ab46;" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="FarmController.MenuController">
+
+    <Text text="FARM MY FARM" style="-fx-font-size: 50; -fx-fill: white; -fx-font-weight: bold;" />
+
+    <VBox alignment="CENTER" spacing="10">
+        <Button text="Nouvelle Partie" onAction="#handleNewGame" prefWidth="200" styleClass="pixel-button" />
+        <Button text="Charger" onAction="#handleLoadGame" prefWidth="200" styleClass="pixel-button" />
+        <Button text="Quitter" onAction="#handleQuit" prefWidth="200" styleClass="pixel-button" />
+    </VBox>
+
+</VBox>
