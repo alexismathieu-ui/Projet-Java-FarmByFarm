@@ -1,18 +1,14 @@
 package FarmEngine;
 
+import Farm.*;
 import Farm.Animal.Chicken;
 import Farm.Animal.Cow;
 import Farm.Animal.Pig;
 import Farm.Animal.Sheep;
-import Farm.Animals;
 import Farm.Crops.*;
-import Farm.Culture;
-import Farm.Farms;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-
-import Farm.Plot;
 
 import java.io.*;
 import java.util.Scanner;
@@ -53,6 +49,14 @@ public class SaveSystem {
             writer.println("ANIMALS_STARTS");
             for(Animals animals : farms.getMyAnimals()){
                 writer.println(animals.getSpecies() + "|" + animals.isHungry() + "|" + animals.hasProduced());
+            }
+            writer.println("ANIMALS_END");
+            writer.println("QUESTS_DATA");
+            writer.println(farms.getNextQuestTime());
+
+            writer.println(farms.getActiveQuests().size());
+            for (Quest q : farms.getActiveQuests()) {
+                writer.println(q.getTargetItem() + "|" + q.getAmountNeeded() + "|" + q.getRewardMoney() + "|" + q.getRewardXP());
             }
 
             System.out.println("Partie Sauvegardée dans " + FILE_PATH);
@@ -119,6 +123,7 @@ public class SaveSystem {
             while(scanner.hasNextLine()){
                 String line = scanner.nextLine();
                 if (line.equals("ANIMALS_STARTS")) continue;
+                if (line.equals("ANIMALS_END")) break;
 
                 String[] parts = line.split("\\|");
                 Animals animals = switch (parts[0]){
@@ -133,6 +138,44 @@ public class SaveSystem {
                     animals.setHungry(Boolean.parseBoolean(parts[1]));
                     animals.setProduced(Boolean.parseBoolean(parts[2]));
                     farms.addAnimals(animals);
+                }
+            }
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.equals("QUESTS_DATA")) {
+                    if (scanner.hasNextLine()) {
+                        long savedNextTime = Long.parseLong(scanner.nextLine());
+                        long now = System.currentTimeMillis();
+
+                        if (savedNextTime != 0 && now >= savedNextTime) {
+                            farms.setNextQuestTime(0);
+                            farms.generalQuests();
+                            break;
+                        } else {
+                            farms.setNextQuestTime(savedNextTime);
+                        }
+                    }
+
+                    if (scanner.hasNextLine()) {
+                        int questCount = Integer.parseInt(scanner.nextLine());
+                        farms.getActiveQuests().clear();
+
+                        for (int i = 0; i < questCount; i++) {
+                            if (scanner.hasNextLine()) {
+                                String questLine = scanner.nextLine();
+                                String[] qParts = questLine.split("\\|");
+                                if(qParts.length < 4) continue;
+
+                                Quest q = new Quest(
+                                        qParts[0],
+                                        Integer.parseInt(qParts[1]),
+                                        Double.parseDouble(qParts[2]),
+                                        Integer.parseInt(qParts[3])
+                                );
+                                farms.getActiveQuests().add(q);
+                            }
+                        }
+                    }
                 }
             }
 

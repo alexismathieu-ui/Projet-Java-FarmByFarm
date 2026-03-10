@@ -20,6 +20,10 @@ public class Farms {
     private Weather currentWeather = Weather.SUNNY;
     private int unlockedPlotsCount = 0;
     private HashMap<String, Integer> marketSales = new HashMap<>();
+    private List<Quest> activeQuests = new ArrayList<>();
+    private long nextQuestTime = 0 ;
+    private List<Quest> currentQuests = new ArrayList<>();
+    private long questResetTime = 0;
 
 
     public Farms(double initialMoney){
@@ -59,13 +63,6 @@ public class Farms {
         }
     }
 
-    public void setMoney(double init) {
-        this.money = init;
-    }
-    public void setLevel(int level){this.level = level;}
-    public void setCurrentXP(double currentXP){this.currentXP = currentXP;}
-    public void setNextLevelXP(double nextLevelXP){this.nextLevelXP = nextLevelXP;}
-
     public void winMoney(double gains){
         this.money += gains;
     }
@@ -97,26 +94,24 @@ public class Farms {
     }
 
     public void updateWeather() {
-            Farms.Weather[] allWeather = Farms.Weather.values();
-            currentWeather = allWeather[new Random().nextInt(allWeather.length)];
-            System.out.println("Le temps change : " + currentWeather);
+        Farms.Weather[] allWeather = Farms.Weather.values();
+        currentWeather = allWeather[new Random().nextInt(allWeather.length)];
+        System.out.println("Le temps change : " + currentWeather);
     }
 
-    public int getLevel() { return level; }
-    public double getCurrentXP() { return currentXP; }
-    public double getNextLevelXP() { return nextLevelXP; }
-    public double getMoney() {
-        return money;
+    public void generalQuests(){
+        activeQuests.clear();
+        String[] possibleItems = {"Wheat_Crop","Carrot_Crop","Potato_Crop","Tomato_Crop","Kiwi_Crop","Strawberry_Crop","Corn_Crop","Pumpkin_Crop","Egg_Crop","Truff_Crop","Wool_Crop","Milk_Crop",};
+        Random rand = new Random();
+
+        for (int i = 0; i < 3; i ++){
+            String items = possibleItems[rand.nextInt(possibleItems.length)];
+            int amount = rand.nextInt(50) + 1;
+            double reward = amount * (10 + rand.nextInt(50)) * level;
+            activeQuests.add(new Quest(items, amount, reward, 20 * level));
+        }
     }
-    public ArrayList<Animals> getMyAnimals(){
-        return myAnimals;
-    }
-    public void addAnimals(Animals animals){
-        this.myAnimals.add(animals);
-    }
-    public Plot[][] getField() {
-        return field;
-    }
+
     public int getNbLINES(){return LINES;};
     public int getNbCOLMUNS(){return COLUMNS;}
     public Inventory getInventory() { return inventory; }
@@ -124,5 +119,23 @@ public class Farms {
     public void setCurrentWeather(Weather w) { this.currentWeather = w; }
     public int getUnlockedPlotsCount() { return unlockedPlotsCount; }
     public void incrementUnlockedPlots() { this.unlockedPlotsCount++; }
-
+    public List<Quest> getActiveQuests() { return activeQuests; }
+    public long getNextQuestTime() { return nextQuestTime; }
+    public void setNextQuestTime(long time) { this.nextQuestTime = time; }
+    public void setMoney(double init) {
+        this.money = init;
+    }
+    public void setLevel(int level){this.level = level;}
+    public void setCurrentXP(double currentXP){this.currentXP = currentXP;}
+    public void setNextLevelXP(double nextLevelXP){this.nextLevelXP = nextLevelXP;}
+    public int getLevel() { return level; }
+    public double getCurrentXP() { return currentXP; }
+    public double getNextLevelXP() { return nextLevelXP; }
+    public double getMoney() {return money;}
+    public ArrayList<Animals> getMyAnimals(){return myAnimals;}
+    public void addAnimals(Animals animals){this.myAnimals.add(animals);}
+    public Plot[][] getField() {return field;}
+    public List<Quest> getCurrentQuests() { return currentQuests; }
+    public long getQuestResetTime() { return questResetTime; }
+    public void setQuestResetTime(long time) { this.questResetTime = time; }
 }

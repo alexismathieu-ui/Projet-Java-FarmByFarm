@@ -33,6 +33,7 @@
             <Label text="MENUS" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
             <Button onAction="#onOpenStore" text="Marchand 🛒" maxWidth="Infinity" style="-fx-min-height: 40;"/>
             <Button onAction="#onOpenInventory" text="Sac à dos 🎒" maxWidth="Infinity" style="-fx-min-height: 40;"/>
+            <Button onAction="#onOpenQuestBoard" text="Quest Board 📅" maxWidth="Infinity" style="-fx-background-color: #499ED1; -fx-text-fill: white;-fx-min-height: 40;"/>
             <Button fx:id="barnButton" onAction="#goToBarn" text="Grange 🏠" maxWidth="Infinity"
                     style="-fx-background-color: #795548; -fx-text-fill: white; -fx-min-height: 40;"/>
 

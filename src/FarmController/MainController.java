@@ -4,6 +4,7 @@ import Farm.Crops.*;
 import Farm.Culture;
 import Farm.Farms;
 import Farm.Plot;
+import Farm.Quest;
 import FarmEngine.GameTimer;
 import FarmEngine.SaveSystem;
 import javafx.event.ActionEvent;
@@ -233,6 +234,39 @@ public class MainController {
             storeStage.setScene(new Scene(root));
             storeStage.show();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onOpenQuestBoard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/QuestView.fxml"));
+            Parent root = loader.load();
+
+            QuestController questCtrl = loader.getController();
+
+
+            questCtrl.init(this.farms, () -> {
+                updateUI();
+                refreshInventoryUI();
+            });
+
+            Stage questStage = new Stage();
+            questStage.setTitle("Tableau des Quêtes");
+
+            questStage.initOwner(farmGrid.getScene().getWindow());
+            questStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+
+            questStage.setResizable(false);
+
+            questStage.setScene(new Scene(root));
+
+            questStage.setOnCloseRequest(e -> questCtrl.close());
+
+            questStage.show();
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de QuestView.fxml");
             e.printStackTrace();
         }
     }
