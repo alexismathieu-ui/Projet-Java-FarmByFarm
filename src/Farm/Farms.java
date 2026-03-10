@@ -3,6 +3,7 @@ package Farm;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Farms {
     private double money;
@@ -14,6 +15,8 @@ public class Farms {
     private int level = 1;
     private double currentXP = 0;
     private double nextLevelXP = 100;
+    public enum Weather { SUNNY, RAINY, THUNDERSTORM, DROUGHT }
+    private Weather currentWeather = Weather.SUNNY;
 
     public Farms(double initialMoney){
         this.money = initialMoney;
@@ -61,6 +64,12 @@ public class Farms {
         System.out.println("LEVEL UP ! Vous êtes niveau " + level);
     }
 
+    public void updateWeather() {
+            Farms.Weather[] allWeather = Farms.Weather.values();
+            currentWeather = allWeather[new Random().nextInt(allWeather.length)];
+            System.out.println("Le temps change : " + currentWeather);
+    }
+
     public int getLevel() { return level; }
     public double getCurrentXP() { return currentXP; }
     public double getNextLevelXP() { return nextLevelXP; }
@@ -79,5 +88,7 @@ public class Farms {
     public int getNbLINES(){return LINES;};
     public int getNbCOLMUNS(){return COLUMNS;}
     public Inventory getInventory() { return inventory; }
+    public Weather getCurrentWeather() { return currentWeather; }
+    public void setCurrentWeather(Weather w) { this.currentWeather = w; }
 
 }

@@ -21,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class MainController {
     @FXML
@@ -50,6 +51,7 @@ public class MainController {
     private InventoryController currentInventoryCtrl;
     private Stage inventoryStage;
     int requiredLevel;
+    @FXML private Label weatherLabel;
 
     @FXML
     public void initialize() {
@@ -73,13 +75,21 @@ public class MainController {
         xpLabel.setText((int)farms.getCurrentXP() + " / " + (int)farms.getNextLevelXP() + " XP");
 
         barnButton.setDisable(farms.getLevel() < 5);
-        if (farms.getLevel() >= 2) {
+        if (farms.getLevel() >= 5) {
             barnButton.setDisable(false);
             barnButton.setText("Grange 🏠");
         } else {
             barnButton.setDisable(true);
-            barnButton.setText("Grange (Niv. 2)");
+            barnButton.setText("Grange (Niv. 5)");
         }
+
+        String weatherText = switch (farms.getCurrentWeather()) {
+            case SUNNY -> "☀️ Soleil (x1)";
+            case RAINY -> "🌧️ Pluie (x1.5)";
+            case THUNDERSTORM -> "⚡ Orage (x2)";
+            case DROUGHT -> "🔥Sécheresse (x0.5)";
+        };
+        weatherLabel.setText("Météo : " + weatherText);
     }
 
     private void refreshGrid(){
@@ -255,4 +265,5 @@ public class MainController {
         Stage stage = (Stage) farmGrid.getScene().getWindow();
         stage.getScene().setRoot(root);
     }
+
 }

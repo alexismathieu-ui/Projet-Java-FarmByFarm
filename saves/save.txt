@@ -1,9 +1,9 @@
-6995.0
-7
-190.0
-1139.0625
+9890.0
 11
-0
+3000.0
+5766.50390625
+2
+20
 0
 0
 0
@@ -52,5 +52,3 @@ EMPTY
 EMPTY
 EMPTY
 ANIMALS_STARTS
-Chicken|false|true
-Chicken|false|true
