@@ -1,6 +1,6 @@
-2468370.0
+2016370.0
 14
-8000.0
+8200.0
 19461.95068359375
 9
 0
@@ -20,13 +20,13 @@
 0
 0
 0
+1
 0
 0
 0
+2
 0
-0
-0
-0
+1
 false
 EMPTY
 false
@@ -168,3 +168,7 @@ EMPTY
 true
 EMPTY
 ANIMALS_STARTS
+Cow|true|false
+Cow|true|false
+Sheep|true|false
+Chicken|true|false

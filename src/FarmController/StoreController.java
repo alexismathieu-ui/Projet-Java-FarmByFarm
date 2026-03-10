@@ -38,13 +38,30 @@ public class StoreController {
         updateUI();
     }
 
+    private double getSellPrice(String name) {
+        return switch (name) {
+            case "Egg_Crop" -> 500.0;
+            case "Wool_Crop" -> 3000.0;
+            case "Milk_Crop" -> 20000.0;
+            case "Truff_Crop" -> 150000.0;
+            case "Wheat_Crop" -> 15.0;
+            case "Carrot_Crop" -> 400.0;
+            case "Potato_Crop" -> 2100.0;
+            case "Tomato_Crop" -> 6500.0;
+            case "Kiwi_Crop" -> 24000.0;
+            case "Strawberry_Crop" -> 150000.0;
+            case "Corn_Crop" -> 575000.0;
+            case "Pumpkin_Crop" -> 3000000.0;
+            default -> 0.0;
+        };
+    }
+
     @FXML
     public void updateUI() {
         if (farms == null) return;
 
         moneyLabel.setText("Argent : " + (int)farms.getMoney() + " $");
 
-        // 1. Mise à jour du verrouillage des boutons
         updateButtonState(Wheat_Seed, 1);
         updateButtonState(Carrot_Seed, 2);
         updateButtonState(Potato_Seed, 3);
@@ -54,7 +71,6 @@ public class StoreController {
         updateButtonState(Corn_Seed, 10);
         updateButtonState(Pumpkin_Seed, 20);
 
-        // 2. Mise à jour des labels de prix dynamiques
         updatePriceLabel(wheatSellLabel, new Wheat());
         updatePriceLabel(carrotSellLabel, new Carrot());
         updatePriceLabel(potatoSellLabel, new Potato());
@@ -106,27 +122,37 @@ public class StoreController {
 
     @FXML
     private void sellingCrops() {
-        for (String itemName : farms.getInventory().getItems().keySet()) {
-            if (itemName.endsWith("_Crop")) {
-                int qty = farms.getInventory().getQuantity(itemName);
-                if (qty > 0) {
-                    String cultureName = itemName.replace("_Crop", "");
-                    Culture c = createCulture(cultureName + "_Seed");
+        java.util.Map<String, Integer> items = farms.getInventory().getItems();
+        java.util.List<String> keys = new java.util.ArrayList<>(items.keySet());
 
-                    if (c != null) {
-                        double pricePerUnit = farms.getDemandPrice(c.getName(), c.getSellPrice());
-                        farms.winMoney(pricePerUnit * qty);
-                        farms.recordSale(c.getName(), qty);
-                        farms.getInventory().add(itemName, -qty);
-                    }
-                }
+        for (String itemName : keys) {
+            int qty = items.get(itemName);
+            if (qty <= 0) continue;
+
+            double basePrice = 0;
+            String displayName = itemName;
+
+            if (itemName.endsWith("_Crop")) {
+                basePrice = getSellPrice(itemName);
+                displayName = itemName.replace("_Crop", "");
+            } else {
+                basePrice = getSellPrice(itemName);
+            }
+
+            if (basePrice > 0) {
+                double pricePerUnit = farms.getDemandPrice(displayName, basePrice);
+                farms.winMoney(pricePerUnit * qty);
+                farms.recordSale(displayName, qty);
+                farms.getInventory().add(itemName, -qty);
+
+                System.out.println("Vendu: " + qty + " " + displayName + " pour " + (pricePerUnit * qty) + "$");
             }
         }
+
         updateUI();
         if (onPurchaseCallback != null) onPurchaseCallback.run();
     }
 
-    // Tes méthodes utilitaires restent identiques
     private double getPriceforSeeds(String type) {
         return switch (type) {
             case "Wheat_Seed" -> 5.0;
