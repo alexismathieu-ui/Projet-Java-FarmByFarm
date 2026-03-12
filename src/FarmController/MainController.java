@@ -22,6 +22,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 import java.io.IOException;
 import java.util.Random;
@@ -35,6 +38,7 @@ public class MainController {
     @FXML private Label levelLabel;
     @FXML private Label xpLabel;
     @FXML private Label weatherLabel;
+    @FXML private Button adminBtn;
 
     private Farms farms;
     private GameTimer gameTimer;
@@ -47,7 +51,7 @@ public class MainController {
     @FXML
     public void initialize() {
         if (this.farms == null){
-            this.farms = new Farms(10000);
+            this.farms = new Farms(20);
         }
         refreshGrid();
     }
@@ -171,8 +175,8 @@ public class MainController {
                             java.io.InputStream is = getClass().getResourceAsStream(spritePath);
                             if (is != null) {
                                 ImageView cropView = new ImageView(new Image(is));
-                                cropView.setFitWidth(CELL - 30);
-                                cropView.setFitHeight(CELL - 30);
+                                cropView.setFitWidth(CELL - 40);
+                                cropView.setFitHeight(CELL - 40);
                                 cropView.setPreserveRatio(true);
                                 visualCell.getChildren().add(cropView);
                             }
@@ -239,7 +243,7 @@ public class MainController {
         } else if (plotting.getActualCulture().isReady()) {
             String cropName = plotting.getActualCulture().getName() + "_Crop";
             farms.getInventory().add(cropName, 1);
-            farms.addXP(1000);
+            farms.addXP(100);
             refreshInventoryUI();
             plotting.collect();
             labelStatus.setText("Collected : " + cropName);
@@ -338,6 +342,15 @@ public class MainController {
         this.gameTimer = new GameTimer(this.farms, this::updateUI);
         this.gameTimer.start();
 
+        javafx.application.Platform.runLater(() -> {
+            if (farmGrid.getScene() != null) {
+                farmGrid.getScene().getAccelerators().put(
+                        new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN),
+                        this::onOpenAdmin
+                );
+            }
+        });
+
         updateUI();
         refreshGrid();
         refreshInventoryUI();
@@ -401,6 +414,26 @@ public class MainController {
 
         refreshGrid();
         updateUI();
+    }
+
+
+    @FXML
+    private void onOpenAdmin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AdminView.fxml"));
+            Parent root = loader.load();
+            FarmController.AdminController ctrl = loader.getController();
+            ctrl.setFarms(this.farms);
+            ctrl.setOnCloseCallback(this::updateUI);
+            Stage stage = new Stage();
+            stage.setTitle("Admin Panel");
+            stage.initOwner(farmGrid.getScene().getWindow());
+            stage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void goToBarn() throws IOException{

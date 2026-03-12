@@ -62,7 +62,6 @@ public class Enclosure {
         return animals.get(0).getSpecies();
     }
 
-    // Getters & Setters
     public int getId() { return id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

@@ -46,6 +46,9 @@
             <Region VBox.vgrow="ALWAYS"/>
             <Region styleClass="side-separator"/>
 
+            <Button fx:id="adminBtn" onAction="#onOpenAdmin"
+                    text=" " maxWidth="Infinity"
+                    style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-pref-height: 6px; -fx-min-height: 6px; -fx-max-height: 6px; -fx-cursor: default; -fx-opacity: 0;"/>
             <Button onAction="#onSave" text="💾  Sauvegarder" maxWidth="Infinity" styleClass="save-btn"/>
 
         </VBox>

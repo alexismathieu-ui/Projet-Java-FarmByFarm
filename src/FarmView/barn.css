@@ -1,15 +1,8 @@
-/* ============================================================
-   BARN.CSS - Farm by Farm - Full graphical redesign
-   Thème : ferme rustique pixel / rétro avec tons chauds
-   ============================================================ */
-
-/* ---- ROOT ---- */
 .barn-root {
     -fx-background-color: #2d1b0e;
     -fx-font-family: "Courier New", monospace;
 }
 
-/* ---- TOP BAR ---- */
 .barn-topbar {
     -fx-background-color: linear-gradient(to bottom, #3e1f05, #5c2e0a);
     -fx-border-color: #c47f00;
@@ -65,7 +58,6 @@
     -fx-font-family: "Courier New", monospace;
 }
 
-/* ---- BACK BUTTON ---- */
 .back-btn {
     -fx-background-color: #5c3510, #4a2a0a, #3a1e05;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
@@ -145,7 +137,6 @@
     -fx-font-family: "Courier New", monospace;
 }
 
-/* ---- ACTION BUTTONS ---- */
 .action-btn-green {
     -fx-background-color: #2a5c10, #1e4809, #163505;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
@@ -230,7 +221,6 @@
     -fx-scale-x: 0.97; -fx-scale-y: 0.97; -fx-translate-y: 2;
 }
 
-/* ---- SECTION TITLE ---- */
 .section-title {
     -fx-text-fill: #f5c518;
     -fx-font-size: 16px;
@@ -241,7 +231,6 @@
     -fx-padding: 0 0 6 0;
 }
 
-/* ---- SCROLL PANE ---- */
 .barn-scroll {
     -fx-background: transparent;
     -fx-background-color: transparent;
@@ -250,8 +239,6 @@
 .barn-scroll > .viewport {
     -fx-background-color: transparent;
 }
-
-/* ---- STATUS / BOTTOM ---- */
 .status-label {
     -fx-text-fill: #a89070;
     -fx-font-style: italic;
@@ -273,11 +260,6 @@
     -fx-font-size: 12px;
     -fx-font-family: "Courier New", monospace;
 }
-
-/* ============================================================
-   ENCLOSURE CARDS
-   ============================================================ */
-
 .enclosure-card {
     -fx-background-color: linear-gradient(to bottom right, #3a2010, #2a1508);
     -fx-border-color: #8B5E3C;
@@ -387,11 +369,6 @@
     -fx-background-color: linear-gradient(to right, #c47f00, #f5c518);
     -fx-background-radius: 0;
 }
-
-/* ============================================================
-   ENCLOSURE DETAIL VIEW
-   ============================================================ */
-
 .encl-root {
     -fx-background-color: #2d1b0e;
     -fx-font-family: "Courier New", monospace;
@@ -557,8 +534,6 @@
     -fx-text-alignment: center;
     -fx-padding: 30 0 0 0;
 }
-
-/* ---- ANIMAL CARDS inside enclosure ---- */
 .animal-card {
     -fx-background-color: linear-gradient(to bottom right, #3a2010, #2a1508);
     -fx-border-color: #8B5E3C;
@@ -614,11 +589,6 @@
     -fx-font-size: 11px;
     -fx-font-family: "Courier New", monospace;
 }
-
-/* ============================================================
-   ANIMAL SHOP (updated)
-   ============================================================ */
-
 .shop-root {
     -fx-background-color: #2d1b0e;
     -fx-font-family: "Courier New", monospace;

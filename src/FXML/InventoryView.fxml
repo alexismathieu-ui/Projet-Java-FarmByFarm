@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="FarmController.InventoryController" prefWidth="250" prefHeight="350" style="-fx-padding: 20;">
-    <Label text="MON INVENTAIRE" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
-    <Separator/>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="FarmController.InventoryController"
+            styleClass="inv-root"
+            prefWidth="500" prefHeight="580"
+            stylesheets="@../FarmView/inventory.css">
 
-    <VBox spacing="5" VBox.vgrow="ALWAYS">
-        <ListView fx:id="inventoryList" prefHeight="200" />
-    </VBox>
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="inv-topbar">
+            <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+            <Label text="🎒 SAC À DOS" styleClass="inv-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="totalItemsLabel" text="0 objets" styleClass="inv-count"/>
+            <Button text="✖ Fermer" onAction="#closeInventory" styleClass="inv-close-btn"/>
+        </HBox>
+    </top>
 
-    <Label fx:id="wheatSeedLabel" visible="false" managed="false" />
-    <Label fx:id="wheatCropLabel" visible="false" managed="false" />
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="inv-scroll">
+            <VBox spacing="16">
+                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
 
-    <Button text="Fermer" onAction="#closeInventory" style="-fx-background-color: #d32f2f; -fx-text-fill: white;"/>
-</VBox>
+                <VBox spacing="8" styleClass="inv-section">
+                    <Label text="🌱 GRAINES" styleClass="inv-section-title"/>
+                    <GridPane fx:id="seedGrid" hgap="10" vgap="10"/>
+                </VBox>
+
+                <VBox spacing="8" styleClass="inv-section">
+                    <Label text="🌾 RÉCOLTES" styleClass="inv-section-title"/>
+                    <GridPane fx:id="cropGrid" hgap="10" vgap="10"/>
+                </VBox>
+
+                <VBox spacing="8" styleClass="inv-section">
+                    <Label text="🐾 PRODUITS ANIMAUX" styleClass="inv-section-title"/>
+                    <GridPane fx:id="animalGrid" hgap="10" vgap="10"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" styleClass="inv-bottombar">
+            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+            <Label fx:id="wheatSeedLabel" visible="false" managed="false"/>
+            <Label fx:id="wheatCropLabel" visible="false" managed="false"/>
+            <Label fx:id="invStatusLabel" text="Cliquez sur un objet pour plus d'infos" styleClass="inv-status"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
