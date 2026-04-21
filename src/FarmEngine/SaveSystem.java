@@ -310,7 +310,6 @@ public class SaveSystem {
             String dateText = lastSaved > 0 ? SAVE_DATE_FORMATTER.format(Instant.ofEpochMilli(lastSaved)) : "date inconnue";
             return "Niv " + level + " — " + (int) money + " $ — " + formatDuration(playTime) + " — " + dateText + " — v" + version;
         } catch (Exception e) { return "Sauvegarde corrompue"; }
-        return "Nouvelle Partie";
     }
 
     private static String formatDuration(long totalSeconds) {

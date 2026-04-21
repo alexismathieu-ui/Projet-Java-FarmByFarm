@@ -7,16 +7,23 @@ import Farm.Plot;
 import Farm.Quest;
 import FarmEngine.GameTimer;
 import FarmEngine.GameBalance;
+import FarmEngine.GameSettings;
+import FarmEngine.I18n;
+import FarmEngine.AudioPaths;
 import FarmEngine.SaveSystem;
+import FarmEngine.SoundManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,6 +50,7 @@ public class MainController {
     @FXML private Label xpLabel;
     @FXML private Label weatherLabel;
     @FXML private Button adminBtn;
+    @FXML private ListView<String> eventLogList;
 
     private Farms farms;
     private GameTimer gameTimer;
@@ -52,31 +60,36 @@ public class MainController {
     private Stage inventoryStage;
     private final int requiredLevel = GameBalance.BARN_UNLOCK_LEVEL;
     private Timeline autosaveTimer;
+    private final ObservableList<String> eventLogItems = FXCollections.observableArrayList();
+    private int lastDisplayedLevel = 1;
 
     @FXML
     public void initialize() {
         if (this.farms == null){
             this.farms = new Farms(20);
         }
+        if (eventLogList != null) {
+            eventLogList.setItems(eventLogItems);
+        }
         refreshGrid();
     }
 
     private void updateUI(){
-        moneyLabel.setText("Money : " + (int)farms.getMoney() + " $");
+        moneyLabel.setText(I18n.tr("main.money", (int) farms.getMoney()));
         refreshGrid();
 
         double progress = farms.getCurrentXP() / farms.getNextLevelXP();
         xpBar.setProgress(progress);
-        levelLabel.setText("Niveau " + farms.getLevel());
+        levelLabel.setText(I18n.tr("main.level", farms.getLevel()));
         xpLabel.setText((int)farms.getCurrentXP() + " / " + (int)farms.getNextLevelXP() + " XP");
 
         barnButton.setDisable(farms.getLevel() < 5);
         if (farms.getLevel() >= 5) {
             barnButton.setDisable(false);
-            barnButton.setText("Grange 🏠");
+            barnButton.setText(I18n.tr("main.barn.open") + " 🏠");
         } else {
             barnButton.setDisable(true);
-            barnButton.setText("Grange (Niv. 5)");
+            barnButton.setText(I18n.tr("main.barn.locked"));
         }
 
         String weatherText = switch (farms.getCurrentWeather()) {
@@ -85,7 +98,14 @@ public class MainController {
             case THUNDERSTORM -> "⚡ Orage (x2)";
             case DROUGHT -> "🔥Sécheresse (x0.5)";
         };
-        weatherLabel.setText("Météo : " + weatherText);
+        weatherLabel.setText(I18n.tr("main.weather", weatherText));
+
+        if (farms.getLevel() > lastDisplayedLevel) {
+            logEvent("Niveau " + farms.getLevel() + " atteint.");
+            lastDisplayedLevel = farms.getLevel();
+        } else if (farms.getLevel() < lastDisplayedLevel) {
+            lastDisplayedLevel = farms.getLevel();
+        }
     }
 
     private Image textureSol  = null;
@@ -270,6 +290,7 @@ public class MainController {
 
     @FXML
     private void onOpenStore() {
+        SoundManager.playSfx(AudioPaths.SFX_OPEN);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/StoreView.fxml"));
             Parent root = loader.load();
@@ -284,13 +305,17 @@ public class MainController {
             });
 
             Stage storeStage = new Stage();
-            storeStage.setTitle("Market");
+            storeStage.setTitle(I18n.tr("store.title"));
 
             storeStage.initOwner(farmGrid.getScene().getWindow());
             storeStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
 
-
             storeStage.setScene(new Scene(root));
+            storeStage.setWidth(1120);
+            storeStage.setHeight(780);
+            storeStage.setMinWidth(980);
+            storeStage.setMinHeight(680);
+            storeStage.centerOnScreen();
             storeStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -299,6 +324,7 @@ public class MainController {
 
     @FXML
     private void onOpenQuestBoard() {
+        SoundManager.playSfx(AudioPaths.SFX_OPEN);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/QuestView.fxml"));
             Parent root = loader.load();
@@ -312,7 +338,7 @@ public class MainController {
             });
 
             Stage questStage = new Stage();
-            questStage.setTitle("Tableau des Quêtes");
+            questStage.setTitle(I18n.tr("quest.title"));
 
             questStage.initOwner(farmGrid.getScene().getWindow());
             questStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
@@ -332,6 +358,7 @@ public class MainController {
 
     @FXML
     private void onActionHarvest() {
+        SoundManager.playSfx(AudioPaths.SFX_HARVEST);
         int collected = 0;
         for (int i = 0; i < farms.getNbLINES(); i++) {
             for (int j = 0; j < farms.getNbCOLMUNS(); j++) {
@@ -350,6 +377,7 @@ public class MainController {
         refreshGrid();
         if (collected > 0) {
             labelStatus.setText("Récolte terminée : " + collected + " culture(s) collectée(s).");
+            logEvent("Recolte globale: " + collected + " culture(s).");
         } else {
             labelStatus.setText("Aucune culture prête à récolter.");
         }
@@ -364,6 +392,8 @@ public class MainController {
         this.gameTimer = new GameTimer(this.farms, this::updateUI);
         this.gameTimer.start();
         startAutosave();
+        lastDisplayedLevel = farms.getLevel();
+        logEvent("Partie chargee (slot " + farms.getCurrentSaveSlot() + ").");
 
         javafx.application.Platform.runLater(() -> {
             if (farmGrid.getScene() != null) {
@@ -383,6 +413,7 @@ public class MainController {
     private void onSaveClicked() {
         SaveSystem.saves(this.farms, this.farms.getCurrentSaveSlot());
         System.out.println("Sauvegarde effectuée sur le slot " + farms.getCurrentSaveSlot());
+        logEvent("Sauvegarde manuelle effectuee.");
     }
 
     @FXML
@@ -399,7 +430,9 @@ public class MainController {
             currentInventoryCtrl.update(this.farms);
 
             inventoryStage = new Stage();
-            inventoryStage.setTitle("Inventory");
+            inventoryStage.setTitle(I18n.tr("inventory.title"));
+            inventoryStage.initOwner(farmGrid.getScene().getWindow());
+            inventoryStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
             inventoryStage.setScene(new Scene(root));
 
             inventoryStage.setOnCloseRequest(e -> {
@@ -423,6 +456,8 @@ public class MainController {
     private void onSave() {
         SaveSystem.saves(this.farms, this.farms.getCurrentSaveSlot());
         labelStatus.setText("Game Saved !");
+        logEvent("Sauvegarde manuelle effectuee.");
+        SoundManager.playSfx(AudioPaths.SFX_SAVE);
     }
 
     public Farms getFarms() {
@@ -438,6 +473,7 @@ public class MainController {
         this.gameTimer = new GameTimer(this.farms, this::updateUI);
         this.gameTimer.start();
         startAutosave();
+        lastDisplayedLevel = farms.getLevel();
 
         refreshGrid();
         updateUI();
@@ -446,6 +482,7 @@ public class MainController {
 
     @FXML
     private void onOpenAdmin() {
+        SoundManager.playSfx(AudioPaths.SFX_OPEN);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/AdminView.fxml"));
             Parent root = loader.load();
@@ -453,7 +490,7 @@ public class MainController {
             ctrl.setFarms(this.farms);
             ctrl.setOnCloseCallback(this::updateUI);
             Stage stage = new Stage();
-            stage.setTitle("Admin Panel");
+            stage.setTitle(I18n.tr("admin.title"));
             stage.initOwner(farmGrid.getScene().getWindow());
             stage.initModality(javafx.stage.Modality.WINDOW_MODAL);
             stage.setScene(new Scene(root));
@@ -484,13 +521,47 @@ public class MainController {
         if (!GameBalance.AUTOSAVE_ENABLED) {
             return;
         }
-        autosaveTimer = new Timeline(new KeyFrame(Duration.seconds(GameBalance.AUTOSAVE_INTERVAL_SECONDS), event -> {
+        autosaveTimer = new Timeline(new KeyFrame(Duration.seconds(GameSettings.getAutosaveIntervalSeconds()), event -> {
             if (this.farms != null) {
                 SaveSystem.saves(this.farms, this.farms.getCurrentSaveSlot());
+                logEvent("Autosave (slot " + this.farms.getCurrentSaveSlot() + ").");
             }
         }));
         autosaveTimer.setCycleCount(Timeline.INDEFINITE);
         autosaveTimer.play();
+    }
+
+    @FXML
+    private void onOpenSettings() {
+        SoundManager.playSfx(AudioPaths.SFX_OPEN);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/SettingsView.fxml"));
+            Parent root = loader.load();
+            SettingsController ctrl = loader.getController();
+            ctrl.setOnApply(() -> {
+                startAutosave();
+                updateUI();
+                SoundManager.updateVolume();
+                logEvent("Parametres appliques.");
+            });
+
+            Stage settingsStage = new Stage();
+            settingsStage.setTitle(I18n.tr("settings.title"));
+            settingsStage.initOwner(farmGrid.getScene().getWindow());
+            settingsStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            settingsStage.setScene(new Scene(root));
+            settingsStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void logEvent(String message) {
+        if (eventLogList == null) return;
+        eventLogItems.add(0, message);
+        if (eventLogItems.size() > 30) {
+            eventLogItems.remove(30, eventLogItems.size());
+        }
     }
 
 }

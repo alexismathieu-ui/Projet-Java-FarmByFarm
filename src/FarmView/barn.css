@@ -1,17 +1,17 @@
 .barn-root {
-    -fx-background-color: #2d1b0e;
+    -fx-background-color: #24180d;
     -fx-font-family: "Courier New", monospace;
 }
 
 .barn-topbar {
-    -fx-background-color: linear-gradient(to bottom, #3e1f05, #5c2e0a);
-    -fx-border-color: #c47f00;
+    -fx-background-color: linear-gradient(to bottom, #4b3118, #352210);
+    -fx-border-color: #cda867;
     -fx-border-width: 0 0 3 0;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7), 8, 0, 0, 4);
 }
 
 .barn-title {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe1a0;
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
@@ -20,14 +20,14 @@
 
 /* ---- LEVEL BLOCK ---- */
 .level-block {
-    -fx-background-color: rgba(0,0,0,0.3);
-    -fx-border-color: #c47f00;
+    -fx-background-color: rgba(0,0,0,0.26);
+    -fx-border-color: #cda867;
     -fx-border-width: 2;
     -fx-padding: 6 12 6 12;
 }
 
 .level-label {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe1a0;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-font-family: "Courier New", monospace;
@@ -36,7 +36,7 @@
 .xp-bar {
     -fx-pref-height: 12px;
     -fx-background-color: #1a0a00;
-    -fx-border-color: #c47f00;
+    -fx-border-color: #cda867;
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
@@ -48,21 +48,21 @@
 }
 
 .xp-bar .bar {
-    -fx-background-color: linear-gradient(to right, #2ecc40, #56d64a);
+    -fx-background-color: linear-gradient(to right, #5aa64f, #8edb64);
     -fx-background-radius: 0;
 }
 
 .xp-label {
-    -fx-text-fill: #a8d88a;
+    -fx-text-fill: #cde1a8;
     -fx-font-size: 10px;
     -fx-font-family: "Courier New", monospace;
 }
 
 .back-btn {
-    -fx-background-color: #5c3510, #4a2a0a, #3a1e05;
+    -fx-background-color: #7a5a30, #624825, #4b371d;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #c47f00;
+    -fx-border-color: #f0cf8b;
     -fx-border-width: 2;
     -fx-text-fill: #f5e6c8;
     -fx-font-family: "Courier New", monospace;
@@ -74,8 +74,8 @@
 }
 
 .back-btn:hover {
-    -fx-background-color: #7a4a1a, #5c3510, #4a2a0a;
-    -fx-border-color: #f5c518;
+    -fx-background-color: #957043, #7a5a30, #624825;
+    -fx-border-color: #ffe1a0;
     -fx-scale-x: 1.04;
     -fx-scale-y: 1.04;
 }
@@ -88,8 +88,8 @@
 
 /* ---- SIDEBAR ---- */
 .barn-sidebar {
-    -fx-background-color: linear-gradient(to right, #1e0e04, #2e1508);
-    -fx-border-color: #c47f00;
+    -fx-background-color: linear-gradient(to right, #3d2815, #2d1d10);
+    -fx-border-color: #cda867;
     -fx-border-width: 0 3 0 0;
     -fx-min-width: 190px;
     -fx-max-width: 190px;
@@ -97,7 +97,7 @@
 }
 
 .sidebar-title {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe1a0;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
@@ -105,26 +105,26 @@
 }
 
 .barn-sep {
-    -fx-background-color: #c47f00;
+    -fx-background-color: #cda867;
     -fx-pref-height: 2;
     -fx-opacity: 0.5;
 }
 
 .stat-box {
-    -fx-background-color: rgba(0,0,0,0.25);
-    -fx-border-color: rgba(196, 127, 0, 0.3);
+    -fx-background-color: rgba(0,0,0,0.22);
+    -fx-border-color: rgba(205,168,103,0.35);
     -fx-border-width: 1;
     -fx-padding: 8 10 8 10;
 }
 
 .stat-label {
-    -fx-text-fill: #d4c4a8;
+    -fx-text-fill: #ebd8b5;
     -fx-font-size: 12px;
     -fx-font-family: "Courier New", monospace;
 }
 
 .stat-label-green {
-    -fx-text-fill: #56d64a;
+    -fx-text-fill: #a6e57d;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
@@ -138,12 +138,12 @@
 }
 
 .action-btn-green {
-    -fx-background-color: #2a5c10, #1e4809, #163505;
+    -fx-background-color: #4f6935, #3b4f28, #2a3a1c;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #56d64a;
+    -fx-border-color: #c5e2a5;
     -fx-border-width: 2;
-    -fx-text-fill: #d4f0c0;
+    -fx-text-fill: #f0f8e3;
     -fx-font-family: "Courier New", monospace;
     -fx-font-weight: bold;
     -fx-font-size: 12px;
@@ -155,8 +155,8 @@
 }
 
 .action-btn-green:hover {
-    -fx-background-color: #3a7a18, #2a5c10, #1e4809;
-    -fx-border-color: #7df570;
+    -fx-background-color: #668647, #4f6935, #3b4f28;
+    -fx-border-color: #dff3bf;
     -fx-scale-x: 1.04;
     -fx-scale-y: 1.04;
     -fx-effect: dropshadow(three-pass-box, rgba(80,200,50,0.35), 6, 0, 0, 0);
@@ -167,10 +167,10 @@
 }
 
 .action-btn-brown {
-    -fx-background-color: #6a3818, #562c10, #42200a;
+    -fx-background-color: #87653b, #6e512d, #554022;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #c47f00;
+    -fx-border-color: #f0cf8b;
     -fx-border-width: 2;
     -fx-text-fill: #f5e6c8;
     -fx-font-family: "Courier New", monospace;
@@ -184,8 +184,8 @@
 }
 
 .action-btn-brown:hover {
-    -fx-background-color: #8a4e28, #6a3818, #562c10;
-    -fx-border-color: #f5c518;
+    -fx-background-color: #a07b4a, #87653b, #6e512d;
+    -fx-border-color: #ffe1a0;
     -fx-scale-x: 1.04; -fx-scale-y: 1.04;
 }
 
@@ -194,12 +194,12 @@
 }
 
 .action-btn-blue {
-    -fx-background-color: #0e3860, #0a2c4e, #08203c;
+    -fx-background-color: #4b6b78, #3a545f, #2c4149;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #5ab0ff;
+    -fx-border-color: #b5d8e8;
     -fx-border-width: 2;
-    -fx-text-fill: #d0eeff;
+    -fx-text-fill: #edf7fb;
     -fx-font-family: "Courier New", monospace;
     -fx-font-weight: bold;
     -fx-font-size: 12px;
@@ -211,8 +211,8 @@
 }
 
 .action-btn-blue:hover {
-    -fx-background-color: #1a5090, #0e3860, #0a2c4e;
-    -fx-border-color: #7ec8ff;
+    -fx-background-color: #648794, #4b6b78, #3a545f;
+    -fx-border-color: #d2ebf5;
     -fx-scale-x: 1.04; -fx-scale-y: 1.04;
     -fx-effect: dropshadow(three-pass-box, rgba(0,160,255,0.3), 6, 0, 0, 0);
 }
@@ -222,11 +222,11 @@
 }
 
 .section-title {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe1a0;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
-    -fx-border-color: #c47f00;
+    -fx-border-color: #cda867;
     -fx-border-width: 0 0 2 0;
     -fx-padding: 0 0 6 0;
 }
@@ -240,7 +240,7 @@
     -fx-background-color: transparent;
 }
 .status-label {
-    -fx-text-fill: #a89070;
+    -fx-text-fill: #cfb88f;
     -fx-font-style: italic;
     -fx-font-size: 11px;
     -fx-font-family: "Courier New", monospace;
@@ -248,14 +248,14 @@
 }
 
 .barn-bottombar {
-    -fx-background-color: linear-gradient(to top, #3e1f05, #5c2e0a);
-    -fx-border-color: #c47f00;
+    -fx-background-color: linear-gradient(to top, #352210, #4b3118);
+    -fx-border-color: #cda867;
     -fx-border-width: 3 0 0 0;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 8, 0, -4, 0);
 }
 
 .bottom-status {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe1a0;
     -fx-font-style: italic;
     -fx-font-size: 12px;
     -fx-font-family: "Courier New", monospace;

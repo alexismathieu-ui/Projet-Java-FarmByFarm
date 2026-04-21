@@ -41,6 +41,7 @@
             <Button onAction="#onOpenStore"      text="🛒  Marchand"    maxWidth="Infinity" styleClass="nav-btn"/>
             <Button onAction="#onOpenInventory"  text="🎒  Sac à dos"   maxWidth="Infinity" styleClass="nav-btn"/>
             <Button onAction="#onOpenQuestBoard" text="📋  Quêtes"      maxWidth="Infinity" styleClass="nav-btn"/>
+            <Button onAction="#onOpenSettings"   text="⚙  Parametres"   maxWidth="Infinity" styleClass="nav-btn"/>
             <Button fx:id="barnButton" onAction="#goToBarn" text="🏠  Grange" maxWidth="Infinity" styleClass="barn-btn"/>
 
             <Region VBox.vgrow="ALWAYS"/>
@@ -65,6 +66,14 @@
             </StackPane>
         </ScrollPane>
     </center>
+
+    <right>
+        <VBox spacing="8" styleClass="side-bar" prefWidth="240">
+            <Label text="JOURNAL" styleClass="side-title"/>
+            <Region styleClass="side-separator"/>
+            <ListView fx:id="eventLogList" prefHeight="420"/>
+        </VBox>
+    </right>
 
     <bottom>
         <VBox spacing="10" alignment="CENTER" styleClass="bottom-bar">

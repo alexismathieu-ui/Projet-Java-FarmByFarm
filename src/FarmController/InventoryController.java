@@ -1,6 +1,7 @@
 package FarmController;
 
 import Farm.Farms;
+import FarmEngine.GameSettings;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -29,11 +30,17 @@ public class InventoryController {
         EMOJI.put("Egg","🥚"); EMOJI.put("Milk","🥛"); EMOJI.put("Wool","🧶"); EMOJI.put("Truff","🍄");
     }
     private static final java.util.Map<String,String> FR = new java.util.HashMap<>();
+    private static final java.util.Map<String,String> EN = new java.util.HashMap<>();
     static {
         FR.put("Wheat","Blé"); FR.put("Carrot","Carotte"); FR.put("Potato","Patate");
         FR.put("Tomato","Tomate"); FR.put("Lemon","Citron"); FR.put("Strawberry","Fraise");
         FR.put("Corn","Maïs"); FR.put("Pineapple","Ananas");
         FR.put("Egg","Œuf"); FR.put("Milk","Lait"); FR.put("Wool","Laine"); FR.put("Truff","Truffe");
+
+        EN.put("Wheat","Wheat"); EN.put("Carrot","Carrot"); EN.put("Potato","Potato");
+        EN.put("Tomato","Tomato"); EN.put("Lemon","Lemon"); EN.put("Strawberry","Strawberry");
+        EN.put("Corn","Corn"); EN.put("Pineapple","Pineapple");
+        EN.put("Egg","Egg"); EN.put("Milk","Milk"); EN.put("Wool","Wool"); EN.put("Truff","Truffle");
     }
 
     public void update(Farms farms) {
@@ -46,11 +53,14 @@ public class InventoryController {
         int total = 0;
         int col;
 
+        java.util.Map<String, String> names = "EN".equalsIgnoreCase(GameSettings.getLanguage()) ? EN : FR;
+
         col = 0;
         for (String name : CROPS) {
             int qty = farms.getInventory().getQuantity(name + "_Seed");
             total += qty;
-            VBox card = makeCard(EMOJI.getOrDefault(name,"🌱"), FR.getOrDefault(name,name), qty, "seed", name + " Graine");
+            String suffix = "EN".equalsIgnoreCase(GameSettings.getLanguage()) ? " Seed" : " Graine";
+            VBox card = makeCard(EMOJI.getOrDefault(name,"🌱"), names.getOrDefault(name,name), qty, "seed", names.getOrDefault(name,name) + suffix);
             seedGrid.add(card, col % 4, col / 4);
             col++;
         }
@@ -59,7 +69,8 @@ public class InventoryController {
         for (String name : CROPS) {
             int qty = farms.getInventory().getQuantity(name + "_Crop");
             total += qty;
-            VBox card = makeCard(EMOJI.getOrDefault(name,"🌾"), FR.getOrDefault(name,name), qty, "crop", name + " Récolte");
+            String suffix = "EN".equalsIgnoreCase(GameSettings.getLanguage()) ? " Crop" : " Récolte";
+            VBox card = makeCard(EMOJI.getOrDefault(name,"🌾"), names.getOrDefault(name,name), qty, "crop", names.getOrDefault(name,name) + suffix);
             cropGrid.add(card, col % 4, col / 4);
             col++;
         }
@@ -68,12 +79,12 @@ public class InventoryController {
         for (String name : ANIMALS_PROD) {
             int qty = farms.getInventory().getQuantity(name + "_Crop");
             total += qty;
-            VBox card = makeCard(EMOJI.getOrDefault(name,"📦"), FR.getOrDefault(name,name), qty, "animal", name);
+            VBox card = makeCard(EMOJI.getOrDefault(name,"📦"), names.getOrDefault(name,name), qty, "animal", names.getOrDefault(name,name));
             animalGrid.add(card, col % 4, col / 4);
             col++;
         }
 
-        if (totalItemsLabel != null) totalItemsLabel.setText(total + " objets");
+        if (totalItemsLabel != null) totalItemsLabel.setText(total + ("EN".equalsIgnoreCase(GameSettings.getLanguage()) ? " items" : " objets"));
     }
 
     private VBox makeCard(String emoji, String name, int qty, String type, String fullName) {

@@ -1,7 +1,11 @@
 package FarmController;
 
 import Farm.Farms;
+import FarmEngine.GameSettings;
+import FarmEngine.I18n;
 import FarmEngine.SaveSystem;
+import FarmEngine.SoundManager;
+import FarmEngine.AudioPaths;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,9 +25,22 @@ import java.io.IOException;
 public class MenuController {
     @FXML private VBox menuPane;
     @FXML private Button slot1Btn;
+    @FXML private Label lastSaveLabel;
+
+    @FXML
+    public void initialize() {
+        GameSettings.load();
+        int slot = SaveSystem.getMostRecentSaveSlot();
+        if (slot == -1) {
+            lastSaveLabel.setText(I18n.tr("menu.continue.none"));
+        } else {
+            lastSaveLabel.setText(I18n.tr("menu.continue.last", slot, SaveSystem.getSaveSummary(slot)));
+        }
+    }
 
     @FXML
     private void onPlayClicked() {
+        SoundManager.playSfx(AudioPaths.SFX_CLICK);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/SaveChoiceView.fxml"));
             Parent root = loader.load();
@@ -47,6 +65,7 @@ public class MenuController {
 
     @FXML
     private void onContinueClicked() {
+        SoundManager.playSfx(AudioPaths.SFX_CLICK);
         int lastSlot = SaveSystem.getMostRecentSaveSlot();
         if (lastSlot == -1) {
             onPlayClicked();
@@ -73,6 +92,7 @@ public class MenuController {
             }
 
             gameController.init(myFarm);
+            SoundManager.playMusic(AudioPaths.MUSIC_GAME);
 
             Stage stage = (Stage) menuPane.getScene().getWindow();
 
