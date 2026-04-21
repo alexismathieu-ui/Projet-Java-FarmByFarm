@@ -1,27 +1,26 @@
 .root {
     -fx-font-family: "Courier New", monospace;
-    -fx-background-color: #7bc142;
+    -fx-background-color: #2a1c12;
 }
 
 .top-bar {
-    -fx-background-color: #5c3d1e;
-    -fx-border-color: #f5c518;
+    -fx-background-color: linear-gradient(to bottom, #4a3218, #362411);
+    -fx-border-color: #d7b16a;
     -fx-border-width: 0 0 4 0;
     -fx-padding: 10 20 10 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 8, 0, 0, 4);
 }
 
 .top-section {
-    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-color: rgba(255, 242, 220, 0.08);
     -fx-background-radius: 0;
-    -fx-border-color: #c47f00;
+    -fx-border-color: #aa7a3e;
     -fx-border-width: 2;
     -fx-border-radius: 0;
     -fx-padding: 6 16 6 16;
 }
 
 .level-label {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe2a0;
     -fx-font-weight: bold;
     -fx-font-size: 15px;
     -fx-font-family: "Courier New", monospace;
@@ -29,34 +28,34 @@
 }
 
 .xp-bar {
-    -fx-accent: #56d64a;
+    -fx-accent: #7acb5a;
     -fx-pref-height: 14px;
     -fx-pref-width: 220px;
-    -fx-background-color: #2a1a08;
-    -fx-border-color: #c47f00;
+    -fx-background-color: #1f140a;
+    -fx-border-color: #aa7a3e;
     -fx-border-width: 2;
     -fx-border-radius: 0;
     -fx-background-radius: 0;
 }
 
 .xp-bar .track {
-    -fx-background-color: #2a1a08;
+    -fx-background-color: #1f140a;
     -fx-background-radius: 0;
 }
 
 .xp-bar .bar {
-    -fx-background-color: linear-gradient(to right, #2ecc40, #56d64a);
+    -fx-background-color: linear-gradient(to right, #5aa64f, #8edb64);
     -fx-background-radius: 0;
 }
 
 .xp-label {
-    -fx-text-fill: #d4e8c2;
+    -fx-text-fill: #d7d6bf;
     -fx-font-size: 10px;
     -fx-font-family: "Courier New", monospace;
 }
 
 .money-label {
-    -fx-text-fill: #56d64a;
+    -fx-text-fill: #9de56b;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
@@ -64,21 +63,20 @@
 }
 
 .status-label {
-    -fx-text-fill: #f0e6c8;
-    -fx-font-style: italic;
+    -fx-text-fill: #f3dfb4;
     -fx-font-size: 12px;
     -fx-font-family: "Courier New", monospace;
 }
 
 .weather-box {
-    -fx-background-color: rgba(0, 80, 120, 0.45);
-    -fx-border-color: #00c8ff;
+    -fx-background-color: rgba(46, 70, 84, 0.62);
+    -fx-border-color: #78c1d9;
     -fx-border-width: 2;
     -fx-padding: 6 18 6 18;
 }
 
 .weather-label {
-    -fx-text-fill: #7eeeff;
+    -fx-text-fill: #afe9ff;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-font-family: "Courier New", monospace;
@@ -86,16 +84,15 @@
 
 
 .side-bar {
-    -fx-background-color: #4a2c0a;
-    -fx-border-color: #f5c518;
+    -fx-background-color: linear-gradient(to right, #3f2b16, #2f2010);
+    -fx-border-color: #d7b16a;
     -fx-border-width: 0 4 0 0;
     -fx-padding: 18 12 18 12;
     -fx-min-width: 165px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 8, 4, 0, 0);
 }
 
 .side-title {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe2a0;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
@@ -103,13 +100,13 @@
 }
 
 .nav-btn {
-    -fx-background-color: #8B5E3C, #7a5030, #613e24;
+    -fx-background-color: #74502b, #5c3f22, #463017;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0, 0, 0;
-    -fx-border-color: #f5c518;
+    -fx-border-color: #d7b16a;
     -fx-border-width: 2;
     -fx-border-radius: 0;
-    -fx-text-fill: #fff8e7;
+    -fx-text-fill: #ffefcc;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
@@ -117,16 +114,13 @@
     -fx-cursor: hand;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 10 0 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 0, 3, 3, 0);
 }
 
 .nav-btn:hover {
-    -fx-background-color: #b07840, #8B5E3C, #7a5030;
+    -fx-background-color: #947043, #74502b, #5c3f22;
     -fx-text-fill: #ffffff;
-    -fx-scale-x: 1.04;
-    -fx-scale-y: 1.04;
-    -fx-effect: dropshadow(three-pass-box, rgba(245,197,24,0.4), 6, 0, 0, 0),
-                dropshadow(three-pass-box, rgba(0,0,0,0.5), 0, 3, 3, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .nav-btn:pressed {
@@ -138,10 +132,10 @@
 }
 
 .barn-btn {
-    -fx-background-color: #7b3b2a, #6a3020, #521f12;
+    -fx-background-color: #6f4427, #56341d, #3f2714;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #f5c518;
+    -fx-border-color: #d7b16a;
     -fx-border-width: 2;
     -fx-text-fill: #fff8e7;
     -fx-font-size: 13px;
@@ -155,9 +149,9 @@
 }
 
 .barn-btn:hover {
-    -fx-background-color: #a04a36, #7b3b2a, #6a3020;
-    -fx-scale-x: 1.04;
-    -fx-scale-y: 1.04;
+    -fx-background-color: #8a5a34, #6f4427, #56341d;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .barn-btn:pressed {
@@ -172,12 +166,12 @@
 }
 
 .save-btn {
-    -fx-background-color: #1a5c8a, #14497a, #0e3660;
+    -fx-background-color: #44643f, #345133, #263d28;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #7eeeff;
+    -fx-border-color: #abd28e;
     -fx-border-width: 2;
-    -fx-text-fill: #e0f7ff;
+    -fx-text-fill: #e7f5d8;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
@@ -188,10 +182,9 @@
 }
 
 .save-btn:hover {
-    -fx-background-color: #2478b0, #1a5c8a, #14497a;
-    -fx-scale-x: 1.04;
-    -fx-scale-y: 1.04;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,200,255,0.35), 6, 0, 0, 0);
+    -fx-background-color: #557b4f, #44643f, #345133;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .save-btn:pressed {
@@ -202,9 +195,26 @@
 }
 
 .side-separator {
-    -fx-background-color: #c47f00;
+    -fx-background-color: #aa7a3e;
     -fx-pref-height: 2;
     -fx-max-width: Infinity;
+}
+
+.list-view {
+    -fx-background-color: #2a1c12;
+    -fx-border-color: #b99555;
+    -fx-border-width: 2;
+}
+
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f0dfbf;
+    -fx-font-size: 11px;
+}
+
+.list-view .list-cell:filled:selected {
+    -fx-background-color: #4c341c;
+    -fx-text-fill: #fff1d1;
 }
 
 .farm-scroll {
@@ -218,47 +228,44 @@
 
 .farm-center {
     -fx-background-color: transparent;
-    -fx-padding: 20;
+    -fx-padding: 16;
 }
 
 .bottom-bar {
-    -fx-background-color: #5c3d1e;
-    -fx-border-color: #f5c518;
+    -fx-background-color: linear-gradient(to top, #3f2a15, #50361b);
+    -fx-border-color: #d7b16a;
     -fx-border-width: 4 0 0 0;
     -fx-padding: 10 20 10 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 8, 0, -4, 0);
 }
 
 .bottom-label {
-    -fx-text-fill: #f5c518;
+    -fx-text-fill: #ffe2a0;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
     -fx-font-family: "Courier New", monospace;
 }
 
 .seed-btn {
-    -fx-background-color: #3d7a1e, #316616, #254f0f;
+    -fx-background-color: #4c6830, #3a5125, #2a3d1b;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #c47f00;
+    -fx-border-color: #b99555;
     -fx-border-width: 2;
-    -fx-text-fill: #e8f5e0;
+    -fx-text-fill: #f0f5df;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-font-family: "Courier New", monospace;
     -fx-pref-width: 110px;
     -fx-pref-height: 50px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 0, 3, 3, 0);
 }
 
 .seed-btn:hover {
-    -fx-background-color: #58a830, #3d7a1e, #316616;
-    -fx-border-color: #f5c518;
+    -fx-background-color: #648945, #4c6830, #3a5125;
+    -fx-border-color: #f0cf8b;
     -fx-text-fill: #ffffff;
-    -fx-scale-x: 1.06;
-    -fx-scale-y: 1.06;
-    -fx-effect: dropshadow(three-pass-box, rgba(80,200,50,0.4), 6, 0, 0, 0);
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
 }
 
 .seed-btn:pressed {
@@ -270,10 +277,10 @@
 }
 
 .harvest-btn {
-    -fx-background-color: #c47f00, #a86a00, #8a5500;
+    -fx-background-color: #7f5b2f, #654822, #4c3618;
     -fx-background-insets: 0, 2 2 0 0, 3 3 0 0;
     -fx-background-radius: 0;
-    -fx-border-color: #f5c518;
+    -fx-border-color: #f0cf8b;
     -fx-border-width: 2;
     -fx-text-fill: #fff8e7;
     -fx-font-size: 13px;
@@ -286,10 +293,9 @@
 }
 
 .harvest-btn:hover {
-    -fx-background-color: #f5a800, #c47f00, #a86a00;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-    -fx-effect: dropshadow(three-pass-box, rgba(255,180,0,0.5), 8, 0, 0, 0);
+    -fx-background-color: #9a7140, #7f5b2f, #654822;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .harvest-btn:pressed {

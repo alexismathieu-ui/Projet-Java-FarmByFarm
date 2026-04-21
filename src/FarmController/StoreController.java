@@ -4,6 +4,9 @@ import Farm.Crops.*;
 import Farm.Culture;
 import Farm.Farms;
 import FarmEngine.GameBalance;
+import FarmEngine.AudioPaths;
+import FarmEngine.I18n;
+import FarmEngine.SoundManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,7 +55,7 @@ public class StoreController {
     public void updateUI() {
         if (farms == null) return;
 
-        moneyLabel.setText("Argent : " + (int)farms.getMoney() + " $");
+        moneyLabel.setText(I18n.tr("store.money", (int) farms.getMoney()));
 
         updateButtonState(Wheat_Seed, GameBalance.getSeedUnlockLevel("Wheat_Seed"));
         updateButtonState(Carrot_Seed, GameBalance.getSeedUnlockLevel("Carrot_Seed"));
@@ -78,9 +81,9 @@ public class StoreController {
             boolean isLocked = farms.getLevel() < requiredLevel;
             btn.setDisable(isLocked);
             if (isLocked) {
-                btn.setText("🔒 Niv. " + requiredLevel);
+                btn.setText(I18n.tr("store.locked", requiredLevel));
             } else {
-                btn.setText("Acheter (" + (int)getPriceforSeeds(btn.getId()) + " $)");
+                btn.setText(I18n.tr("store.buy", (int)getPriceforSeeds(btn.getId())));
             }
         }
     }
@@ -89,7 +92,7 @@ public class StoreController {
         if (label == null) return;
 
         double dynamicPrice = farms.getDemandPrice(normalizeMarketItemName(c.getName()), c.getSellPrice());
-        label.setText("Prix de vente actuel : " + (int)dynamicPrice + " $");
+        label.setText(I18n.tr("store.sell.dynamic", (int)dynamicPrice));
 
 
         if (dynamicPrice < c.getSellPrice() * 0.7) {
@@ -106,6 +109,7 @@ public class StoreController {
         double price = getPriceforSeeds(seedType);
 
         if (farms.spending(price)) {
+            SoundManager.playSfx(AudioPaths.SFX_BUY);
             farms.getInventory().add(seedType, 1);
             updateUI();
             if (onPurchaseCallback != null) onPurchaseCallback.run();
@@ -114,6 +118,7 @@ public class StoreController {
 
     @FXML
     private void sellingCrops() {
+        SoundManager.playSfx(AudioPaths.SFX_SELL);
         java.util.Map<String, Integer> items = farms.getInventory().getItems();
         java.util.List<String> keys = new java.util.ArrayList<>(items.keySet());
 
